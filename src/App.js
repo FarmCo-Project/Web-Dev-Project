@@ -1,70 +1,81 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { CartProvider } from "./context/CartContext";
-import { ProductProvider } from "./context/ProductContext";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Products from "./pages/Products";
-import ProductDetails from "./pages/ProductDetails";
-import Cart from "./pages/Cart";
-import AddProduct from "./pages/AddProduct";
-import About from "./pages/About";
-import "./App.css";
+import React, { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthContext, AuthProvider } from './context/AuthContext.js';
+import { ProductProvider } from './context/ProductContext.js';
+import { CartProvider } from './context/CartContext.js';
 
+// Import demo users utility for testing
+import './utils/demoUsers.js';
+
+// Import Pages
+import Home from './pages/Home.js';
+import Products from './pages/Products.js';
+import ProductDetails from './pages/ProductDetails.js';
+import AddProduct from './pages/AddProduct.js';
+import Cart from './pages/Cart.js';
+import About from './pages/About.js';
+import Login from './pages/Login.js';
+import Register from './pages/Register.js';
+
+// Import Components
+import Navbar from './components/Navbar.js';
+
+// ProtectedRoute component to guard routes that require authentication
+const ProtectedRoute = ({ children }) => {
+  const { currentUser, loading } = useContext(AuthContext); // Get currentUser and loading state from AuthContext
+
+  // If authentication state is still loading, show loading spinner
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 font-inter">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-green-500 mx-auto mb-4"></div>
+          <p className="text-gray-700 text-lg">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If there's no current user (not authenticated), redirect to the login page
+  if (!currentUser) {
+    return <Navigate to="/login" replace />; // 'replace' prop prevents adding to history stack
+  }
+
+  // If user is authenticated, render the children components (the protected page)
+  return children;
+};
+
+// Main App component
 function App() {
   return (
-    <ProductProvider>
-      <CartProvider>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/:id" element={<ProductDetails />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/add-product" element={<AddProduct />} />
-              <Route path="/about" element={<About />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </CartProvider>
-    </ProductProvider>
+    // AuthProvider wraps the entire application to provide authentication context to all components
+    <AuthProvider>
+      <ProductProvider>
+        <CartProvider>
+          {/* Navbar is rendered only if a user is authenticated */}
+          <AuthContext.Consumer>
+            {({ currentUser }) => currentUser && <Navbar />}
+          </AuthContext.Consumer>
+          <Routes>
+            {/* Public routes: accessible to all users (e.g., Login, Register) */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
+            {/* Protected routes: only accessible to authenticated users, wrapped by ProtectedRoute */}
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
+            <Route path="/products/:id" element={<ProtectedRoute><ProductDetails /></ProtectedRoute>} />
+            <Route path="/add-product" element={<ProtectedRoute><AddProduct /></ProtectedRoute>} />
+            <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+            <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+
+            {/* Fallback route: Redirects any unmatched paths */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </CartProvider>
+      </ProductProvider>
+    </AuthProvider>
   );
 }
 
 export default App;
-
-/*
-=== APP.JS - THE MAIN CONTAINER ===
-
-This is the heart of our Farmers Marketplace app! Think of it as the "conductor" of an orchestra.
-
-WHAT IT DOES:
-- Sets up the entire app structure with a header (Navbar), main content area, and footer
-- Wraps everything in our context providers so all components can access cart and product data
-- Defines all the routes (URLs) that users can visit
-- Uses React Router to handle navigation between pages
-
-THE LAYOUT:
-- Flexbox layout with min-h-screen to make sure the footer stays at the bottom
-- Navbar at the top (always visible)
-- Main content area that grows to fill available space
-- Footer at the bottom
-
-CONTEXT PROVIDERS:
-- ProductProvider: Gives all components access to product data (add, remove, list products)
-- CartProvider: Gives all components access to cart functionality (add to cart, remove, etc.)
-
-ROUTES:
-- "/" → Home page (landing page with CTAs)
-- "/products" → Product listing page
-- "/products/:id" → Individual product details (the :id is dynamic)
-- "/cart" → Shopping cart page
-- "/add-product" → Form for farmers to add new products
-- "/about" → About page with company info
-
-This file is pretty simple but super important - it's where everything comes together!
-*/

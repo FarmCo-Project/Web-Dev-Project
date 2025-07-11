@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import defaultProducts from '../data/products';
+import defaultProducts from '../data/products.js';
 
 export const ProductContext = createContext();
 

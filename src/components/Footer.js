@@ -44,17 +44,17 @@ const Footer = () => (
               <span className="mr-3">📍</span>
               Nairobi, Kenya
             </li>
-            <li className="flex items-center">
+            {/* <li className="flex items-center">
               <span className="mr-3">🕒</span>
               Mon-Fri: 8AM-6PM
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
       
       <div className="border-t border-green-700 mt-12 pt-8 text-center">
         <p className="text-green-100 text-lg">
-          © 2024 Farmers Marketplace. All rights reserved. | 
+          © 2025 Farmers Marketplace. All rights reserved. | 
           <span className="ml-2">Supporting local agriculture across Kenya</span>
         </p>
         <p className="text-green-200 mt-2">

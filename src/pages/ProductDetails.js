@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
-import { CartContext } from '../context/CartContext';
-import { ProductContext } from '../context/ProductContext';
+import { CartContext } from '../context/CartContext.js';
+import { ProductContext } from '../context/ProductContext.js';
 
 export default function ProductDetails() {
   const { addToCart } = useContext(CartContext);

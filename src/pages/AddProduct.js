@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ProductContext } from '../context/ProductContext';
+import { ProductContext } from '../context/ProductContext.js';
 
 export default function AddProduct() {
   const { addProduct } = useContext(ProductContext);
