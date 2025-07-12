@@ -54,7 +54,7 @@ const Footer = () => (
       
       <div className="border-t border-green-700 mt-12 pt-8 text-center">
         <p className="text-green-100 text-lg">
-          © 2024 Farmers Marketplace. All rights reserved. | 
+          © 2025 Farmers Marketplace. All rights reserved. | 
           <span className="ml-2">Supporting local agriculture across Kenya</span>
         </p>
         <p className="text-green-200 mt-2">
