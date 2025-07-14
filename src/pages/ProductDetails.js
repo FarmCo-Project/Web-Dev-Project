@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
-import { CartContext } from '../context/CartContext';
-import { ProductContext } from '../context/ProductContext';
+import { CartContext } from '../context/CartContext.js';
+import { ProductContext } from '../context/ProductContext.js';
 
 export default function ProductDetails() {
   const { addToCart } = useContext(CartContext);
@@ -9,6 +9,7 @@ export default function ProductDetails() {
   const { id } = useParams();
   const product = products.find(p => p.id === parseInt(id));
 
+  // If someone tries to visit a product that doesn't exist, let's show them a friendly error page
   if (!product) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -30,12 +31,14 @@ export default function ProductDetails() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-6xl mx-auto">
+          {/* Let's give folks an easy way to get back to browsing */}
           <div className="mb-8">
             <a href="/products" className="text-green-600 hover:text-green-700 transition-colors duration-300">
               ← Back to Products
             </a>
           </div>
 
+          {/* Here's the main product showcase - big image on the left, details on the right */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
               <div className="p-8 lg:p-12">
@@ -51,9 +54,16 @@ export default function ProductDetails() {
                   {product.name}
                 </h1>
                 
-                <p className="text-2xl font-bold text-green-600 mb-8">
-                  KES {product.price.toLocaleString()}
-                </p>
+                <div className="mb-8">
+                  <p className="text-2xl font-bold text-green-600">
+                    KES {product.price.toLocaleString()}
+                  </p>
+                  {product.quantity !== undefined && (
+                    <p className="text-lg text-gray-600 mt-2">
+                      {product.quantity > 0 ? `${product.quantity} units in stock` : 'Currently out of stock'}
+                    </p>
+                  )}
+                </div>
                 
                 <div className="mb-8">
                   <h3 className="text-lg font-semibold text-gray-700 mb-3">Description</h3>
@@ -62,11 +72,13 @@ export default function ProductDetails() {
                   </p>
                 </div>
 
+                {/* The big "Add to Cart" button - this is where the magic happens! */}
                 <button 
                   onClick={() => addToCart(product)} 
-                  className="w-full bg-green-600 text-white py-4 px-8 rounded-xl hover:bg-green-700 transition-all duration-300 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 mb-4"
+                  disabled={product.quantity !== undefined && product.quantity <= 0}
+                  className="w-full bg-green-600 text-white py-4 px-8 rounded-xl hover:bg-green-700 transition-all duration-300 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 mb-4 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  Add to Cart
+                  {product.quantity !== undefined && product.quantity <= 0 ? 'Out of Stock' : 'Add to Cart'}
                 </button>
               </div>
             </div>

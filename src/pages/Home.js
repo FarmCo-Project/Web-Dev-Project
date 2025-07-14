@@ -1,127 +1,183 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from '../context/AuthContext.js';
 
-const Home = () => (
-  <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-    <div className="container mx-auto px-6 py-16">
-      <div className="max-w-6xl mx-auto">
-        {/* Hero Section */}
-        <div className="text-center mb-20">
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 text-green-800 leading-tight">
-            Welcome to Farmers Marketplace
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Connect directly with local farmers. Buy fresh, organic produce and support your community's agricultural economy.
-          </p>
-        </div>
-        
-        {/* Call to Action Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24 max-w-4xl mx-auto">
-          <div className="bg-white p-10 rounded-2xl shadow-xl border border-green-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <h2 className="text-3xl font-bold mb-6 text-green-700">For Customers</h2>
-            <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-              Browse fresh, locally-grown products from trusted farmers in your area. 
-              Get the best quality produce delivered to your doorstep.
+const Home = () => {
+  const { currentUser } = useContext(AuthContext);
+  
+  // Let's figure out who is logged in so we can show the right stuff!
+  const isFarmer = currentUser?.role === 'farmer';
+  const isCustomer = currentUser?.role === 'customer';
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+      <div className="container mx-auto px-6 py-16">
+        <div className="max-w-6xl mx-auto">
+          {/* Big friendly welcome at the top of the page */}
+          <div className="text-center mb-20">
+            <h1 className="text-6xl md:text-7xl font-bold mb-8 text-green-800 leading-tight">
+              Welcome to FarmCo App
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+              Connect directly with local farmers. Buy fresh, organic produce and support your community's agricultural economy.
             </p>
-            <Link 
-              to="/products" 
-              className="inline-block bg-green-600 text-white px-10 py-4 rounded-xl hover:bg-green-700 transition-all duration-300 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              Browse Products
-            </Link>
           </div>
           
-          <div className="bg-white p-10 rounded-2xl shadow-xl border border-blue-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <h2 className="text-3xl font-bold mb-6 text-blue-700">For Farmers</h2>
-            <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-              List your fresh produce and reach customers directly through our platform. 
-              Grow your business and support your community.
-            </p>
-            <Link 
-              to="/add-product" 
-              className="inline-block bg-blue-600 text-white px-10 py-4 rounded-xl hover:bg-blue-700 transition-all duration-300 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              Add Product
-            </Link>
-          </div>
-        </div>
-        
-        {/* Features Section */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">Why Choose Farmers Marketplace?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="text-center group">
-              <div className="bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-green-200 transition-all duration-300">
-                <span className="text-4xl">🌱</span>
+          {/* These cards help users get where they want to go, depending on who they are */}
+          <div className={`grid gap-12 mb-24 max-w-4xl mx-auto ${
+            isCustomer || isFarmer ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-2'
+          }`}>
+            {/* Only show this card if you're NOT a farmer */}
+            {!isFarmer && (
+              <div className="bg-white p-10 rounded-2xl shadow-xl border border-green-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                <h2 className="text-3xl font-bold mb-6 text-green-700">For Customers</h2>
+                <p className="text-gray-600 mb-8 text-lg leading-relaxed">
+                  Browse fresh, locally-grown products from trusted farmers in your area. 
+                  Get the best quality produce delivered to your doorstep.
+                </p>
+                <Link 
+                  to="/products" 
+                  className="inline-block bg-green-600 text-white px-10 py-4 rounded-xl hover:bg-green-700 transition-all duration-300 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+                >
+                  Browse Products
+                </Link>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-green-700">Fresh & Local</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">Direct from farm to your table with maximum freshness and quality</p>
-            </div>
+            )}
             
-            <div className="text-center group">
-              <div className="bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-green-200 transition-all duration-300">
-                <span className="text-4xl">🤝</span>
+            {/* This card is for farmers, or anyone not logged in yet */}
+            {!isCustomer && (
+              <div className="bg-white p-10 rounded-2xl shadow-xl border border-blue-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                <h2 className="text-3xl font-bold mb-6 text-blue-700">For Farmers</h2>
+                <p className="text-gray-600 mb-8 text-lg leading-relaxed">
+                  List your fresh produce and reach customers directly through our platform. 
+                  Grow your business and support your community.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link 
+                    to="/add-product" 
+                    className="inline-block bg-blue-600 text-white px-10 py-4 rounded-xl hover:bg-blue-700 transition-all duration-300 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    Add Product
+                  </Link>
+                  {/* If you're a farmer, you can also browse products! */}
+                  {isFarmer && (
+                    <Link 
+                      to="/products" 
+                      className="inline-block bg-green-600 text-white px-10 py-4 rounded-xl hover:bg-green-700 transition-all duration-300 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+                    >
+                      Browse Products
+                    </Link>
+                  )}
+                </div>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-green-700">Support Farmers</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">Help local agriculture thrive and strengthen your community</p>
-            </div>
-            
-            <div className="text-center group">
-              <div className="bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-green-200 transition-all duration-300">
-                <span className="text-4xl">💰</span>
+            )}
+          </div>
+          
+          {/* Here's where we brag a little about why FarmCo App is awesome */}
+          <div className="mb-20">
+            <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">Why Choose FarmCo App?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <div className="text-center group">
+                <div className="bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-green-200 transition-all duration-300">
+                  <span className="text-4xl">🌱</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-green-700">Fresh & Local</h3>
+                <p className="text-gray-600 text-lg leading-relaxed">Direct from farm to your table with maximum freshness and quality</p>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-green-700">Fair Prices</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">Competitive pricing that benefits both farmers and customers</p>
+              
+              <div className="text-center group">
+                <div className="bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-green-200 transition-all duration-300">
+                  <span className="text-4xl">🤝</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-green-700">Support Farmers</h3>
+                <p className="text-gray-600 text-lg leading-relaxed">Help local agriculture thrive and strengthen your community</p>
+              </div>
+              
+              <div className="text-center group">
+                <div className="bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-green-200 transition-all duration-300">
+                  <span className="text-4xl">💰</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-green-700">Fair Prices</h3>
+                <p className="text-gray-600 text-lg leading-relaxed">Competitive pricing that benefits both farmers and customers</p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Stats Section */}
-        <div className="bg-white rounded-2xl shadow-xl p-12 mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Our Impact</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">500+</div>
-              <div className="text-gray-600">Happy Farmers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">10K+</div>
-              <div className="text-gray-600">Products Sold</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">50+</div>
-              <div className="text-gray-600">Local Communities</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">95%</div>
-              <div className="text-gray-600">Customer Satisfaction</div>
+          {/* Some numbers to show off our impact! */}
+          <div className="bg-white rounded-2xl shadow-xl p-12 mb-20">
+            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Our Impact</h2>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-green-600 mb-2">500+</div>
+                <div className="text-gray-600">Happy Farmers</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-green-600 mb-2">10K+</div>
+                <div className="text-gray-600">Products Sold</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-green-600 mb-2">50+</div>
+                <div className="text-gray-600">Local Communities</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-green-600 mb-2">95%</div>
+                <div className="text-gray-600">Customer Satisfaction</div>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-16 text-white">
-          <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
-          <p className="text-xl mb-8 opacity-90">Join thousands of farmers and customers already using our platform</p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link 
-              to="/products" 
-              className="bg-white text-green-600 px-8 py-4 rounded-xl hover:bg-gray-100 transition-all duration-300 text-lg font-semibold shadow-lg"
-            >
-              Start Shopping
-            </Link>
-            <Link 
-              to="/add-product" 
-              className="border-2 border-white text-white px-8 py-4 rounded-xl hover:bg-white hover:text-green-600 transition-all duration-300 text-lg font-semibold"
-            >
-              List Your Products
-            </Link>
+          {/* Last call to action! Let's get people started. */}
+          <div className="text-center bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-16 text-white">
+            <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
+            <p className="text-xl mb-8 opacity-90">Join thousands of farmers and customers already using our platform</p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              {/* Show different buttons based on user role */}
+              {isCustomer ? (
+                <Link 
+                  to="/products" 
+                  className="bg-white text-green-600 px-8 py-4 rounded-xl hover:bg-gray-100 transition-all duration-300 text-lg font-semibold shadow-lg"
+                >
+                  Start Shopping
+                </Link>
+              ) : isFarmer ? (
+                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                  <Link 
+                    to="/add-product" 
+                    className="bg-white text-blue-600 px-8 py-4 rounded-xl hover:bg-gray-100 transition-all duration-300 text-lg font-semibold shadow-lg"
+                  >
+                    List Your Products
+                  </Link>
+                  <Link 
+                    to="/products" 
+                    className="border-2 border-white text-white px-8 py-4 rounded-xl hover:bg-white hover:text-green-600 transition-all duration-300 text-lg font-semibold"
+                  >
+                    Browse Products
+                  </Link>
+                </div>
+              ) : (
+                // If you're not logged in, you get both options!
+                <>
+                  <Link 
+                    to="/products" 
+                    className="bg-white text-green-600 px-8 py-4 rounded-xl hover:bg-gray-100 transition-all duration-300 text-lg font-semibold shadow-lg"
+                  >
+                    Start Shopping
+                  </Link>
+                  <Link 
+                    to="/add-product" 
+                    className="border-2 border-white text-white px-8 py-4 rounded-xl hover:bg-white hover:text-green-600 transition-all duration-300 text-lg font-semibold"
+                  >
+                    List Your Products
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Home;
 

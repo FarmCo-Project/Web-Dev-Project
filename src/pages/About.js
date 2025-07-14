@@ -1,147 +1,110 @@
 import React from "react";
 
 const About = () => (
-  <div className="min-h-screen bg-gray-50">
-    <div className="container mx-auto px-6 py-12">
-      <div className="max-w-6xl mx-auto">
-        {/* Hero Section */}
-        <div className="text-center mb-20">
-          <h1 className="text-5xl font-bold text-green-800 mb-6">About Farmers Marketplace</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            We're building a bridge between local farmers and consumers, creating a sustainable marketplace 
-            that benefits everyone in the community.
+  <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+    <div className="container mx-auto px-6 py-16">
+      <div className="max-w-4xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <h1 className="text-5xl font-bold text-green-800 mb-6">About FarmCo App</h1>
+          <p className="text-xl text-gray-600 leading-relaxed">
+            Connecting local farmers with customers for a sustainable future
           </p>
         </div>
-        
+
         {/* Mission Section */}
-        <div className="bg-white rounded-2xl shadow-xl p-12 mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-green-700 text-center">Our Mission</h2>
-          <p className="text-lg text-gray-700 mb-8 leading-relaxed text-center max-w-4xl mx-auto">
-            We're building a bridge between local farmers and consumers, creating a sustainable marketplace 
-            that benefits everyone in the community. Our platform empowers farmers to reach customers directly 
-            while providing consumers with access to fresh, high-quality produce.
+        <div className="bg-white rounded-2xl shadow-xl p-12 mb-12">
+          <h2 className="text-3xl font-bold text-green-700 mb-6">Our Mission</h2>
+          <p className="text-lg text-gray-700 leading-relaxed mb-6">
+            At FarmCo App, we believe in the power of local agriculture to strengthen communities and provide fresh, 
+            nutritious food. Our mission is to create a direct bridge between farmers and consumers, eliminating 
+            unnecessary intermediaries and ensuring fair prices for both parties.
           </p>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="bg-green-50 rounded-xl p-8">
-              <h3 className="text-2xl font-bold mb-6 text-green-700">For Farmers</h3>
-              <ul className="text-gray-700 space-y-4 text-lg">
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
-                  Direct access to customers without middlemen
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
-                  Fair pricing for your products
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
-                  Easy product listing and management
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✓</span>
-                  Support for local agriculture
-                </li>
-              </ul>
-            </div>
-            
-            <div className="bg-blue-50 rounded-xl p-8">
-              <h3 className="text-2xl font-bold mb-6 text-blue-700">For Customers</h3>
-              <ul className="text-gray-700 space-y-4 text-lg">
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-3 text-xl">✓</span>
-                  Fresh, locally-grown produce
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-3 text-xl">✓</span>
-                  Transparent pricing and sourcing
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-3 text-xl">✓</span>
-                  Support for local farmers
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-3 text-xl">✓</span>
-                  Convenient shopping experience
-                </li>
-              </ul>
-            </div>
-          </div>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            We're committed to supporting sustainable farming practices and helping local farmers thrive in an 
+            increasingly competitive market while providing customers with access to the freshest, highest-quality 
+            produce available.
+          </p>
         </div>
-        
+
         {/* Values Section */}
-        <div className="mb-16">
-          <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">Our Values</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl">🌾</span>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-green-700">Local Focus</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">Supporting farmers in your community and strengthening local economies</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">🌱</span>
             </div>
-            
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl">🌱</span>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-green-700">Fresh Quality</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">Ensuring the highest quality produce delivered directly from farm to table</p>
+            <h3 className="text-xl font-bold text-green-700 mb-3">Sustainability</h3>
+            <p className="text-gray-600">
+              Promoting environmentally conscious farming practices and reducing food waste through direct connections.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">🤝</span>
             </div>
-            
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl">🤝</span>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-green-700">Fair Trade</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">Promoting fair prices and ethical practices for both farmers and customers</p>
+            <h3 className="text-xl font-bold text-green-700 mb-3">Community</h3>
+            <p className="text-gray-600">
+              Building stronger local communities by supporting small-scale farmers and fostering direct relationships.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">💚</span>
             </div>
+            <h3 className="text-xl font-bold text-green-700 mb-3">Quality</h3>
+            <p className="text-gray-600">
+              Ensuring the highest standards of freshness and quality through our trusted network of local farmers.
+            </p>
           </div>
         </div>
 
-        {/* Stats Section */}
-        <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-12 mb-16 text-white">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Impact</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">500+</div>
-              <div className="text-green-100">Happy Farmers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">10K+</div>
-              <div className="text-green-100">Products Sold</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">50+</div>
-              <div className="text-green-100">Local Communities</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">95%</div>
-              <div className="text-green-100">Customer Satisfaction</div>
-            </div>
-          </div>
-        </div>
-        
-        {/* CTA Section */}
-        <div className="bg-white rounded-2xl shadow-xl p-12">
-          <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Ready to Join Our Community?</h2>
-          <p className="text-gray-700 mb-8 text-lg text-center max-w-2xl mx-auto">
-            Whether you're a farmer looking to sell your products or a customer wanting fresh, local produce, 
-            we're here to help you get started.
+        {/* Story Section */}
+        <div className="bg-white rounded-2xl shadow-xl p-12 mb-12">
+          <h2 className="text-3xl font-bold text-green-700 mb-6">Our Story</h2>
+          <p className="text-lg text-gray-700 leading-relaxed mb-6">
+            FarmCo App was born from a simple observation: local farmers were struggling to reach customers, 
+            while consumers were looking for fresh, local produce but couldn't easily find it. We saw an opportunity 
+            to use technology to solve this age-old problem.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a 
-              href="/products" 
-              className="bg-green-600 text-white px-8 py-4 rounded-xl hover:bg-green-700 transition-all duration-300 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 text-center"
-            >
-              Browse Products
-            </a>
-            <a 
-              href="/add-product" 
-              className="bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 transition-all duration-300 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 text-center"
-            >
-              List Your Products
-            </a>
+          <p className="text-lg text-gray-700 leading-relaxed mb-6">
+            What started as a small project to connect a few local farmers with their community has grown into 
+            a comprehensive platform that serves hundreds of farmers and thousands of customers across multiple regions.
+          </p>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            Today, we're proud to be part of the movement towards more sustainable, community-focused food systems, 
+            and we're excited to continue growing and serving more communities in the future.
+          </p>
+        </div>
+
+        {/* Team Section */}
+        <div className="bg-white rounded-2xl shadow-xl p-12">
+          <h2 className="text-3xl font-bold text-green-700 mb-6">Our Team</h2>
+          <p className="text-lg text-gray-700 leading-relaxed mb-8">
+            We're a diverse team of farmers, technologists, and food enthusiasts who are passionate about 
+            creating positive change in our food system. Our combined experience in agriculture, technology, 
+            and community development drives everything we do.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="text-center">
+              <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-3xl">👨‍🌾</span>
+              </div>
+              <h3 className="text-xl font-bold text-green-700 mb-2">Agricultural Experts</h3>
+              <p className="text-gray-600">
+                Experienced farmers and agricultural professionals who understand the challenges and opportunities in local farming.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-3xl">💻</span>
+              </div>
+              <h3 className="text-xl font-bold text-green-700 mb-2">Technology Innovators</h3>
+              <p className="text-gray-600">
+                Skilled developers and designers creating intuitive, reliable technology solutions for the agricultural community.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -152,55 +115,30 @@ const About = () => (
 export default About;
 
 /*
-=== ABOUT.JS - THE COMPANY STORY PAGE ===
+=== ABOUT.JS - THE ABOUT US PAGE ===
 
-This is the "about us" page that tells the story of our Farmers Marketplace!
-It's like the "who we are" section you'd find on any company website.
+This is the "about us" page that tells the story of our FarmCo App!
+It's where users can learn more about who we are, what we do, and why we do it.
 
 WHAT IT DOES:
-- Tells the story and mission of the Farmers Marketplace
-- Explains what we do for both farmers and customers
-- Shows our core values and principles
-- Displays impressive statistics to build trust
-- Provides clear calls-to-action for both user types
-- Builds credibility and explains the platform's purpose
+- Introduces users to our company and mission
+- Explains our values and what drives us
+- Tells our story and how we got started
+- Introduces our team and their expertise
+- Builds trust and credibility with users
 
 THE SECTIONS:
-1. HERO: Big title and mission statement
-2. MISSION: Detailed explanation with benefits for farmers and customers
-3. VALUES: Three core principles with icons and descriptions
-4. STATS: Social proof with impressive numbers
-5. CTA: Final call-to-action for both user types
-
-THE MISSION SECTION:
-- Explains the bridge between farmers and consumers
-- Two-column layout showing benefits for each group
-- Green background for farmers, blue for customers
-- Checkmark lists for easy scanning
-
-THE VALUES SECTION:
-- Three key principles: Local Focus, Fresh Quality, Fair Trade
-- Each value has an icon, title, and description
-- Hover effects for interactivity
-- Consistent design with the rest of the site
-
-THE STATS SECTION:
-- Gradient background for visual appeal
-- Four key metrics: farmers, products sold, communities, satisfaction
-- Large numbers for impact
-- Builds trust and credibility
-
-THE USER JOURNEY:
-- Visitors learn about the platform's mission
-- Understand benefits for their specific role
-- See social proof through statistics
-- Get clear next steps through CTAs
+1. HEADER: Big title and tagline
+2. MISSION: What we're trying to achieve
+3. VALUES: Our core principles (Sustainability, Community, Quality)
+4. STORY: How we got started and grew
+5. TEAM: Who we are and our expertise
 
 THE DESIGN:
-- Consistent with the rest of the site
-- Good use of whitespace and typography
-- Hover effects and transitions
-- Responsive design for all screen sizes
+- Clean, professional layout
+- Consistent with the rest of the app
+- Easy to read and navigate
+- Builds trust through transparency
 
-This page is crucial for building trust and explaining the platform's value proposition!
+This page is important for building user confidence and explaining our value proposition!
 */ 

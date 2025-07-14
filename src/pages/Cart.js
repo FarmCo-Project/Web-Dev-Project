@@ -1,9 +1,10 @@
 import { useContext } from 'react';
-import { CartContext } from '../context/CartContext';
+import { CartContext } from '../context/CartContext.js';
 
 export default function Cart() {
   const { cart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useContext(CartContext);
 
+  // If the cart is empty, let's show a friendly message and encourage them to shop
   if (cart.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -28,7 +29,7 @@ export default function Cart() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-4xl mx-auto">
-          {/* Header */}
+          {/* Let's show them what's in their cart and give them a way to clear it if they want */}
           <div className="flex justify-between items-center mb-12">
             <div>
               <h1 className="text-4xl font-bold text-gray-800 mb-2">Your Shopping Cart</h1>
@@ -42,7 +43,7 @@ export default function Cart() {
             </button>
           </div>
           
-          {/* Cart Items */}
+          {/* Here's where we show each item in their cart with controls to adjust quantities */}
           <div className="space-y-6 mb-12">
             {cart.map((item) => (
               <div key={item.id} className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
@@ -58,6 +59,7 @@ export default function Cart() {
                   </div>
                   
                   <div className="flex items-center gap-4">
+                    {/* Let's give them easy + and - buttons to adjust quantities */}
                     <div className="flex items-center gap-3">
                       <button 
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -89,7 +91,7 @@ export default function Cart() {
             ))}
           </div>
           
-          {/* Order Summary */}
+          {/* Here's the order summary with the total and checkout button */}
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">Order Summary</h2>
             
@@ -110,6 +112,7 @@ export default function Cart() {
               </div>
             </div>
             
+            {/* The big checkout button - this is where they complete their purchase! */}
             <button className="w-full bg-green-600 text-white py-4 rounded-xl hover:bg-green-700 transition-all duration-300 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
               Proceed to Checkout
             </button>

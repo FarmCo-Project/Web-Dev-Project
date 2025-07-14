@@ -1,59 +1,91 @@
-import React, { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { CartContext } from "../context/CartContext";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext.js'; // Import AuthContext to get user info and logout function
+import { CartContext } from '../context/CartContext.js'; // Import CartContext to display cart item count
 
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/products", label: "Products" },
-  { to: "/add-product", label: "Add Product" },
-  { to: "/about", label: "About" },
-];
-
+// Navbar component for site navigation
 const Navbar = () => {
-  const { getCartItemCount } = useContext(CartContext);
-  const cartItemCount = getCartItemCount();
+  const { logout, currentUser } = useContext(AuthContext); // Destructure logout and currentUser from AuthContext
+  const { cart } = useContext(CartContext); // Destructure cart from CartContext
+
+  // Calculate the total number of items in the cart to display in the badge
+  const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Check if user is a farmer (to hide cart functionality)
+  const isFarmer = currentUser?.role === 'farmer';
+  // Check if user is a customer (to show cart functionality)
+  const isCustomer = currentUser?.role === 'customer';
 
   return (
-    <nav className="bg-green-700 text-white px-6 py-6 shadow-lg sticky top-0 z-50">
-      <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="text-2xl font-bold tracking-tight hover:text-green-100 transition-colors duration-300">
-          Farmers Marketplace
+    <nav className="bg-white shadow-lg py-4 px-6 sticky top-0 z-50 rounded-b-2xl font-inter">
+      <div className="container mx-auto flex justify-between items-center">
+        {/* Logo/Brand link to Home page */}
+        <Link to="/" className="flex items-center space-x-3 text-2xl font-bold text-green-700 hover:text-green-800 transition-colors duration-300">
+          <img src="/final_logo.png" alt="FarmCo App Logo" className="h-10 w-10 object-contain" />
+          <span>FarmCo App</span>
         </Link>
-        
-        <div className="hidden md:flex gap-8 items-center">
-          {navLinks.map(link => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              className={({ isActive }) =>
-                `hover:text-green-100 transition-all duration-300 font-medium ${isActive ? 'text-green-100 font-semibold' : 'text-white'}`
-              }
-              end={link.to === "/"}
-            >
-              {link.label}
-            </NavLink>
-          ))}
-          
-          <NavLink
-            to="/cart"
-            className={({ isActive }) =>
-              `hover:text-green-100 transition-all duration-300 font-medium flex items-center gap-2 ${isActive ? 'text-green-100 font-semibold' : 'text-white'}`
-            }
-          >
-            <span>Cart</span>
-            {cartItemCount > 0 && (
-              <span className="bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
-                {cartItemCount}
-              </span>
-            )}
-          </NavLink>
+
+        {/* Primary Navigation Links (visible on medium and larger screens) */}
+        <div className="hidden md:flex space-x-8">
+          <Link to="/" className="text-gray-700 hover:text-green-600 font-medium text-lg transition-colors duration-300">Home</Link>
+          <Link to="/products" className="text-gray-700 hover:text-green-600 font-medium text-lg transition-colors duration-300">Products</Link>
+          {/* Only show Add Product link for farmers */}
+          {isFarmer && (
+            <Link to="/add-product" className="text-gray-700 hover:text-green-600 font-medium text-lg transition-colors duration-300">Add Product</Link>
+          )}
+          <Link to="/about" className="text-gray-700 hover:text-green-600 font-medium text-lg transition-colors duration-300">About</Link>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button className="text-white hover:text-green-100 transition-colors duration-300">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        {/* Right section: Cart icon and User/Auth buttons */}
+        <div className="flex items-center space-x-4">
+          {/* Cart Icon with badge for total items - only show for customers */}
+          {isCustomer && (
+            <Link to="/cart" className="relative text-gray-700 hover:text-green-600 transition-colors duration-300" aria-label={`Shopping cart with ${totalCartItems} items`}>
+              {/* Shopping Cart SVG Icon */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              {/* Cart item count badge, only visible if there are items in the cart */}
+              {totalCartItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {totalCartItems}
+                </span>
+              )}
+            </Link>
+          )}
+
+          {/* User Email and Logout Button (visible if currentUser exists) */}
+          {currentUser ? (
+            <div className="flex items-center space-x-2">
+              {/* Display user's email and role, fallback to 'Guest User' if email is not available */}
+              <span className="text-gray-700 text-md hidden sm:block">
+                {currentUser.email || 'Guest User'} 
+                <span className="text-green-600 font-medium ml-1">
+                  ({currentUser.role === 'farmer' ? 'Farmer' : 'Customer'})
+                </span>
+              </span>
+              <button
+                onClick={logout} // Call the logout function from AuthContext
+                className="bg-red-500 text-white px-4 py-2 rounded-xl font-semibold text-sm hover:bg-red-600 transition-colors duration-300"
+                aria-label="Logout"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            // This block is technically unreachable now due to ProtectedRoute,
+            // but kept for completeness if Navbar were ever used on public routes.
+            <Link to="/login" className="bg-green-600 text-white px-4 py-2 rounded-xl font-semibold text-sm hover:bg-green-700 transition-colors duration-300">
+              Login
+            </Link>
+          )}
+        </div>
+
+        {/* Mobile Menu Button (Hamburger Icon - for future mobile menu implementation) */}
+        <div className="md:hidden flex items-center">
+          <button className="text-gray-700 focus:outline-none" aria-label="Open mobile menu">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>

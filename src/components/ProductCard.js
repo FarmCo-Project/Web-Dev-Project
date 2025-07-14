@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { CartContext } from '../context/CartContext';
+import { CartContext } from '../context/CartContext.js';
 
 export default function ProductCard({ product }) {
   const { addToCart } = useContext(CartContext);
 
   return (
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
+      {/* This is where we show the product image with a nice hover effect */}
       <div className="relative overflow-hidden">
         <img 
           src={product.image} 
@@ -16,6 +17,7 @@ export default function ProductCard({ product }) {
         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
       </div>
       
+      {/* Here's all the product info - name, description, price, and action buttons */}
       <div className="p-6">
         <h2 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-green-600 transition-colors duration-300">
           {product.name}
@@ -25,10 +27,18 @@ export default function ProductCard({ product }) {
           {product.description}
         </p>
         
+        {/* Price, quantity, and a little "Fresh" badge to show quality */}
         <div className="flex items-center justify-between mb-6">
-          <p className="text-2xl font-bold text-green-600">
-            KES {product.price.toLocaleString()}
-          </p>
+          <div>
+            <p className="text-2xl font-bold text-green-600">
+              KES {product.price.toLocaleString()}
+            </p>
+            {product.quantity !== undefined && (
+              <p className="text-sm text-gray-500 mt-1">
+                {product.quantity > 0 ? `${product.quantity} in stock` : 'Out of stock'}
+              </p>
+            )}
+          </div>
           <div className="text-sm text-gray-500">
             <span className="inline-block bg-green-100 text-green-700 px-2 py-1 rounded-full">
               Fresh
@@ -36,6 +46,7 @@ export default function ProductCard({ product }) {
           </div>
         </div>
         
+        {/* The action buttons - view details or add to cart */}
         <div className="flex gap-3">
           <Link 
             to={`/products/${product.id}`} 
@@ -45,9 +56,10 @@ export default function ProductCard({ product }) {
           </Link>
           <button 
             onClick={() => addToCart(product)}
-            className="flex-1 bg-green-600 text-white px-4 py-3 rounded-xl hover:bg-green-700 transition-all duration-300 font-semibold shadow-md hover:shadow-lg"
+            disabled={product.quantity !== undefined && product.quantity <= 0}
+            className="flex-1 bg-green-600 text-white px-4 py-3 rounded-xl hover:bg-green-700 transition-all duration-300 font-semibold shadow-md hover:shadow-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
-            Add to Cart
+            {product.quantity !== undefined && product.quantity <= 0 ? 'Out of Stock' : 'Add to Cart'}
           </button>
         </div>
       </div>

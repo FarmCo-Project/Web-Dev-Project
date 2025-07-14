@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import { CartProvider } from './context/CartContext';
+import App from './App.js';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration.js';
+import { CartProvider } from './context/CartContext.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
