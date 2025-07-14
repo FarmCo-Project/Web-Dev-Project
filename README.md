@@ -7,7 +7,7 @@ Abigail Amani - 188947
 Brian Memusi - 189718
 
 **Project contents include:**
-1. All essential React App Folders such as i).idea ii).vscode iii)build iv)node_modules
+1. Essential React App Folders such as build
 2. Public Folder - with necessary assests such as images, logos, manifest.json and index.html
 3. Src Folder - with necessary pages, components and styling for FarmCo
 4. package.json
