@@ -1,6 +1,7 @@
 **Web Development Project by Group Four: ICS 2B**
 **Project Title - FarmCo Project**
 
+<p>FarmCo is a web application that aims to connect farmers and customers to access local agricultural markets for buying and selling of the products</p>
 
 **Members**
 Stacy Mwangi - 160077	
