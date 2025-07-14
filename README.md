@@ -17,6 +17,8 @@ Brian Memusi - 189718
 6. postcss.config.js
 7. tailwind.config.js
 
+   NB: node_modules not available in the repository as files were too large to commit and push
+
 **How to start the application:**
 1. Download repository contents on as a ZIP file
 2. Extract contents to a folder with the same name as extracted folder
