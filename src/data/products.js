@@ -4,42 +4,48 @@ const products = [
     name: "Fresh Tomatoes",
     description: "Organic, locally grown tomatoes. Perfect for salads and cooking.",
     price: 150,
-    image: "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=400&h=300&fit=crop",
+    quantity: 25
   },
   {
     id: 2,
     name: "Sweet Corn",
     description: "Fresh sweet corn harvested from local farms. Great for grilling or boiling.",
     price: 200,
-    image: "https://images.unsplash.com/photo-1601593768797-9e5c2b0c0c0c?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1601593768797-9e5c2b0c0c0c?w=400&h=300&fit=crop",
+    quantity: 15
   },
   {
     id: 3,
     name: "Carrots",
     description: "Organic carrots rich in vitamins and minerals. Perfect for juicing or cooking.",
     price: 120,
-    image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&h=300&fit=crop",
+    quantity: 30
   },
   {
     id: 4,
     name: "Green Beans",
     description: "Fresh green beans from local farmers. Tender and flavorful.",
     price: 180,
-    image: "https://images.unsplash.com/photo-1567375698348-5d9d5ae99de0?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1567375698348-5d9d5ae99de0?w=400&h=300&fit=crop",
+    quantity: 20
   },
   {
     id: 5,
     name: "Potatoes",
     description: "Fresh potatoes perfect for roasting, mashing, or frying.",
     price: 250,
-    image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=300&fit=crop",
+    quantity: 40
   },
   {
     id: 6,
     name: "Onions",
     description: "Fresh onions with excellent flavor. Essential for cooking.",
     price: 100,
-    image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=300&fit=crop",
+    quantity: 35
   }
 ];
 

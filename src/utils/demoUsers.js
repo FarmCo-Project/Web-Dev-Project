@@ -7,19 +7,22 @@ export const setupDemoUsers = () => {
       id: '1',
       email: 'demo@example.com',
       password: 'password123',
-      name: 'Demo User'
+      name: 'Demo User',
+      role: 'customer'
     },
     {
       id: '2', 
       email: 'farmer@example.com',
       password: 'farmer123',
-      name: 'Farmer John'
+      name: 'Farmer John',
+      role: 'farmer'
     },
     {
       id: '3',
       email: 'customer@example.com', 
       password: 'customer123',
-      name: 'Customer Jane'
+      name: 'Customer Jane',
+      role: 'customer'
     }
   ];
 
@@ -29,7 +32,7 @@ export const setupDemoUsers = () => {
   console.log('Demo users set up successfully!');
   console.log('Available demo accounts:');
   demoUsers.forEach(user => {
-    console.log(`Email: ${user.email}, Password: ${user.password}`);
+    console.log(`Email: ${user.email}, Password: ${user.password}, Role: ${user.role}`);
   });
   
   return demoUsers;

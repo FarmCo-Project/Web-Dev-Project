@@ -45,7 +45,8 @@ export const AuthProvider = ({ children }) => {
         const userWithoutPassword = {
           id: user.id,
           email: user.email,
-          name: user.name || email.split('@')[0] // Use email prefix as name if not provided
+          name: user.name || email.split('@')[0], // Use email prefix as name if not provided
+          role: user.role || 'customer' // Default to customer if role not set
         };
         
         // Store current user in localStorage
@@ -64,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Function to handle user registration
-  const register = async (email, password) => {
+  const register = async (email, password, role) => {
     try {
       // Get stored users from localStorage
       const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
@@ -80,7 +81,8 @@ export const AuthProvider = ({ children }) => {
         id: Date.now().toString(), // Simple ID generation
         email,
         password,
-        name: email.split('@')[0] // Use email prefix as name
+        name: email.split('@')[0], // Use email prefix as name
+        role: role || 'customer' // Default to customer if role not provided
       };
       
       // Add to stored users
@@ -91,7 +93,8 @@ export const AuthProvider = ({ children }) => {
       const userWithoutPassword = {
         id: newUser.id,
         email: newUser.email,
-        name: newUser.name
+        name: newUser.name,
+        role: newUser.role
       };
       
       // Store current user in localStorage

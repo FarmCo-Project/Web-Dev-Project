@@ -6,31 +6,33 @@ export const ProductContext = createContext();
 export function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
 
-  // Load products from localStorage on mount
+  // When the app starts up, let's load any saved products from localStorage
   useEffect(() => {
-    const savedProducts = localStorage.getItem('farmers-marketplace-products');
+    const savedProducts = localStorage.getItem('FarmCo App-products');
     if (savedProducts) {
       setProducts(JSON.parse(savedProducts));
     } else {
-      // Set default products on first load
+      // If this is the first time someone visits, let's show them some sample products
       setProducts(defaultProducts);
-      localStorage.setItem('farmers-marketplace-products', JSON.stringify(defaultProducts));
+      localStorage.setItem('FarmCo App-products', JSON.stringify(defaultProducts));
     }
   }, []);
 
-  // Save products to localStorage whenever products change
+  // Every time the products change, let's save them to localStorage so they don't disappear
   useEffect(() => {
-    localStorage.setItem('farmers-marketplace-products', JSON.stringify(products));
+    localStorage.setItem('FarmCo App-products', JSON.stringify(products));
   }, [products]);
 
+  // This is what farmers use when they add a new product to the marketplace
   const addProduct = (newProduct) => {
     const productWithId = {
       ...newProduct,
-      id: Date.now() // Simple ID generation
+      id: Date.now() // Just using the current time as a quick-and-dirty ID
     };
     setProducts([...products, productWithId]);
   };
 
+  // This could be useful later if we want to let farmers remove their products
   const removeProduct = (productId) => {
     setProducts(products.filter(product => product.id !== productId));
   };

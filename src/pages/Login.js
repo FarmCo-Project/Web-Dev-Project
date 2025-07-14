@@ -38,6 +38,10 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4 font-inter">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md transform transition-all duration-300 hover:shadow-2xl">
+        {/* Logo above the form */}
+        <div className="flex justify-center mb-6">
+          <img src="/final_logo.png" alt="FarmCo App Logo" className="h-20 w-20 object-contain" />
+        </div>
         <h2 className="text-4xl font-bold text-center text-green-700 mb-8">Login</h2>
         {/* Error message display */}
         {error && (

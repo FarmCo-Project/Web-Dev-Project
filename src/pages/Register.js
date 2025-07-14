@@ -7,6 +7,7 @@ const Register = () => {
   const [email, setEmail] = useState(''); // State for email input
   const [password, setPassword] = useState(''); // State for password input
   const [confirmPassword, setConfirmPassword] = useState(''); // State for confirm password input
+  const [role, setRole] = useState('customer'); // State for user role selection
   const [error, setError] = useState(''); // State for displaying registration errors
   const [loading, setLoading] = useState(false); // State for loading indicator during submission
   const navigate = useNavigate(); // Hook to navigate programmatically after registration
@@ -33,8 +34,8 @@ const Register = () => {
     }
 
     try {
-      // Attempt to create a new user with the provided email and password
-      const result = await register(email, password);
+      // Attempt to create a new user with the provided email, password, and role
+      const result = await register(email, password, role);
       
       if (result.success) {
         navigate('/'); // On successful registration, navigate the user to the home page
@@ -74,6 +75,20 @@ const Register = () => {
               required
               aria-label="Email address"
             />
+          </div>
+          <div>
+            <label htmlFor="role" className="block text-gray-700 text-lg font-medium mb-2">I am a:</label>
+            <select
+              id="role"
+              className="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              required
+              aria-label="User role selection"
+            >
+              <option value="customer">Customer (I want to buy products)</option>
+              <option value="farmer">Farmer (I want to sell products)</option>
+            </select>
           </div>
           <div>
             <label htmlFor="password" className="block text-gray-700 text-lg font-medium mb-2">Password</label>

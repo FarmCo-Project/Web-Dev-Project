@@ -5,7 +5,7 @@ export const CartContext = createContext();
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
-  // Load cart from localStorage on mount
+  // When the app starts up, let's load any saved cart items from localStorage
   useEffect(() => {
     const savedCart = localStorage.getItem('farmers-marketplace-cart');
     if (savedCart) {
@@ -13,28 +13,33 @@ export function CartProvider({ children }) {
     }
   }, []);
 
-  // Save cart to localStorage whenever cart changes
+  // Every time the cart changes, let's save it to localStorage so items don't disappear
   useEffect(() => {
     localStorage.setItem('farmers-marketplace-cart', JSON.stringify(cart));
   }, [cart]);
 
+  // This is what happens when someone clicks "Add to Cart" - it's pretty smart!
   const addToCart = (product) => {
     const existingItem = cart.find(item => item.id === product.id);
     if (existingItem) {
+      // If the item is already in the cart, just increase the quantity
       setCart(cart.map(item => 
         item.id === product.id 
           ? { ...item, quantity: item.quantity + 1 }
           : item
       ));
     } else {
+      // If it's a new item, add it with quantity 1
       setCart([...cart, { ...product, quantity: 1 }]);
     }
   };
 
+  // This removes an item completely from the cart
   const removeFromCart = (productId) => {
     setCart(cart.filter(item => item.id !== productId));
   };
 
+  // This handles the +/- buttons in the cart - if quantity goes to 0, it removes the item
   const updateQuantity = (productId, quantity) => {
     if (quantity <= 0) {
       removeFromCart(productId);
@@ -47,14 +52,17 @@ export function CartProvider({ children }) {
     }
   };
 
+  // This empties the entire cart (the "Clear Cart" button)
   const clearCart = () => {
     setCart([]);
   };
 
+  // This calculates the total price for checkout
   const getCartTotal = () => {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
+  // This counts all the items for the cart badge in the navbar
   const getCartItemCount = () => {
     return cart.reduce((count, item) => count + item.quantity, 0);
   };
